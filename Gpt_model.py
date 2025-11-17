@@ -27,8 +27,8 @@ class GPTModel(nn.Module):
         logits = self.out_head(x)
         return logits
 
-    def generate(self, idx, max_new_tokens, context_size, temperature=0.0, top_k=None, eos_id=None):
-
+    def generate(self, idx, max_new_tokens, context_size, device, temperature=0.0, top_k=None, eos_id=None):
+      idx = idx.to(device)
     # For-loop is the same as before: Get logits, and only focus on last time step
       for _ in range(max_new_tokens):
         idx_cond = idx[:, -context_size:]
